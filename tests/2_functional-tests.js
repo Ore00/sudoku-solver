@@ -103,6 +103,17 @@ suite("Functional Tests", () => {
           }
           assert.deepEqual(res.body, { valid: true });
           assert.equal(res.status, 200);
+        });
+      requester
+        .post("/api/check")
+        .send({ coordinate: "C3", value: 2, puzzle: validPuzzle })
+        .end(function (err, res) {
+          if (err) {
+            console.error({ error: err });
+            done(err);
+          }
+          assert.deepEqual(res.body, { valid: true });
+          assert.equal(res.status, 200);
           done();
         });
     });

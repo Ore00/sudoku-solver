@@ -38,7 +38,7 @@ suite("Unit Tests", () => {
       assert.deepEqual(result, { valid: true });
       done();
     });
-    test("an ivalid row placement", function (done) {
+    test("an invalid row placement", function (done) {
       let result = solver.checkRowPlacement(validPuzzle, "A", 2, 5);
       assert.deepEqual(result, { valid: false });
       result = solver.checkRowPlacement(validPuzzle, "K", 2, 9);
@@ -50,7 +50,7 @@ suite("Unit Tests", () => {
       assert.deepEqual(result, { valid: true });
       done();
     });
-    test("an ivalid column placement", function (done) {
+    test("an invalid column placement", function (done) {
       let result = solver.checkColPlacement(validPuzzle, "A", 2, 4);
       assert.deepEqual(result, { valid: false });
       result = solver.checkColPlacement(validPuzzle, "A", 11, 9);
