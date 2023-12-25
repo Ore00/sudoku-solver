@@ -19,12 +19,14 @@ module.exports = function (app) {
         let coordinate = req.body.coordinate;
         let value = req.body.value;
         let puzzle = req.body.puzzle;
-        let row = coordinate.split("")[0];
-        let column = coordinate.split("")[1];
+        if (coordinate.length == 2) {
+          let row = coordinate.split("")[0];
+          let column = coordinate.split("")[1];
 
-        let result = solver.check(puzzle, row, column, value);
-
-        res.send(result);
+          res.send(solver.check(puzzle, row, column, value));
+        } else {
+          res.send({ error: "Invalid coordinate" });
+        }
       },
     );
 

@@ -2,7 +2,7 @@ const chai = require("chai");
 const chaiHttp = require("chai-http");
 const assert = chai.assert;
 const server = require("../server");
-
+const solutions = require("../controllers/puzzle-strings.js");
 const validPuzzle =
   "..9..5.1.85.4....2432......1...69.83.9.....6.62.71...9......1945....4.37.4.3..6..";
 
@@ -17,16 +17,18 @@ const requester = chai.request(server).keepOpen();
 
 suite("Functional Tests", () => {
   suite("POST /api/solve -> solve a puzzle ", function () {
-    test.skip("with valid puzzle string", function (done) {
+    test("with valid puzzle string", function (done) {
       requester
         .post("/api/solve")
-        .send({ puzzle: validPuzzle })
+        .send({ puzzle: solutions.puzzlesAndSolutions[0][0] })
         .end(function (err, res) {
           if (err) {
             console.error({ error: err });
             done(err);
           }
-          assert.deepEqual(res.body, { solution: solvedPuzzle });
+          assert.deepEqual(res.body, {
+            solution: solutions.puzzlesAndSolutions[0][1],
+          });
           assert.equal(res.status, 200);
           done();
         });
@@ -74,7 +76,19 @@ suite("Functional Tests", () => {
         });
     });
     test("that cannot be solved", function (done) {
-      done();
+      let puzzle = validPuzzle.substring(0, 4) + "5" + validPuzzle.substring(5);
+      requester
+        .post("/api/solve")
+        .send({ puzzle: puzzle })
+        .end(function (err, res) {
+          if (err) {
+            console.error({ error: err });
+            done(err);
+          }
+
+          assert.deepEqual(res.body, { error: "Puzzle cannot be solved" });
+          done();
+        });
     });
   });
   suite("POST /api/check -> check a puzzle placement", function () {
@@ -186,6 +200,17 @@ suite("Functional Tests", () => {
       requester
         .post("/api/check")
         .send({ coordinate: "K2", value: 3, puzzle: validPuzzle })
+        .end(function (err, res) {
+          if (err) {
+            console.error({ error: err });
+            done(err);
+          }
+          assert.deepEqual(res.body, { error: "Invalid coordinate" });
+          assert.equal(res.status, 200);
+        });
+      requester
+        .post("/api/check")
+        .send({ coordinate: "A10", value: 7, puzzle: validPuzzle })
         .end(function (err, res) {
           if (err) {
             console.error({ error: err });

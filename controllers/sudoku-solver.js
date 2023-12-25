@@ -19,7 +19,6 @@ class SudokuSolver {
       return { error: "Required field(s) missing" };
     }
     let rowValues = this.determineRowValues(puzzleString, row);
-
     if (rowValues.includes(value)) {
       return { valid: false };
     } else {
@@ -93,7 +92,6 @@ class SudokuSolver {
     let max = pos + 27;
     let grid = "";
     let temp = "";
-    console.log("pos", pos);
     for (let i = pos; i < max; i += 9) {
       temp = puzzleString.slice(i, i + 3);
       grid = grid + temp;
@@ -151,54 +149,99 @@ class SudokuSolver {
   getPuzzleString(puzzleString, position, newValue) {
     if (position != 0) {
       return (
-        puzzleString.substring(position, 1) +
+        puzzleString.substring(0, position) +
         newValue +
-        puzzleString.subString(position + 1)
+        puzzleString.substring(position + 1)
       );
     } else {
-      return newValue + puzzleString.substring(position);
+      return newValue + puzzleString.substring(position + 1);
     }
+  }
+  preCheck(puzzleString) {
+    let puzzleLength = puzzleString.length;
+    let isValid = true;
+    for (let i = 0; i < puzzleLength && isValid !== false; i++) {
+      if (puzzleString.charAt(i) !== ".") {
+        let coordinate = this.determineCoordinate(i);
+        let row = coordinate.charAt(0);
+        let column = coordinate.charAt(1);
+        let validRow = this.determineRowValues(puzzleString, row).replaceAll(
+          ".",
+          "",
+        );
+        let validColumn = this.determineColumnValues(
+          puzzleString,
+          column,
+        ).replaceAll(".", "");
+        let validRegion = this.determineGrid(
+          puzzleString,
+          row,
+          column,
+        ).replaceAll(".", "");
+        for (let j = 0; j < validRow.length; j++) {
+          if (validRow.lastIndexOf(validRow[j]) !== j) {
+            isValid = false;
+            break;
+          }
+        }
+        for (let j = 0; j < validColumn.length; j++) {
+          if (validColumn.lastIndexOf(validColumn[j]) !== j) {
+            isValid = false;
+            break;
+          }
+        }
+        for (let j = 0; j < validRegion.length; j++) {
+          if (validRegion.lastIndexOf(validRegion[j]) !== j) {
+            isValid = false;
+            break;
+          }
+        }
+      }
+    }
+    return { valid: isValid };
+  }
+  setValues(puzzleString) {
+    let solvedPuzzle = puzzleString;
+    let puzzleLength = solvedPuzzle.length;
+    let coordinate, row, column, availableValues;
+    for (let i = 0; i < puzzleLength; i++) {
+      if (solvedPuzzle.charAt(i) === ".") {
+        coordinate = this.determineCoordinate(i);
+        row = coordinate.charAt(0);
+        column = coordinate.charAt(1);
+        availableValues = this.determineAvailableValues(
+          solvedPuzzle,
+          row,
+          column,
+        );
+        if (availableValues.length === 1) {
+          solvedPuzzle = this.getPuzzleString(
+            solvedPuzzle,
+            i,
+            availableValues[0],
+          );
+        }
+      }
+    }
+    return solvedPuzzle;
   }
   solve(puzzleString) {
     let isValid = this.validate(puzzleString);
-
-    if (isValid === true) {
-      let solvedPuzzle = puzzleString;
-      //add solution for solving the puzzle
-      //convert string pos to coordinate if the value is equal to '.'
-      //determine the correct value for the string pos
-      //check if the value is valid
-      //if the value is valid, replace the '.' with the value
-      for (let i = 0; i < puzzleString.length; i++) {
-        let value = puzzleString.charAt(i);
-        if (value === ".") {
-          let coordinate = this.determineCoordinate(i);
-          let row = coordinate.charAt(0);
-          let col = coordinate.charAt(1);
-          let availableValues = this.getAvailableValues(puzzleString, row, col);
-          if (availableValues.length === 1) {
-            console.log("availableValues", availableValues);
-            solvedPuzzle = this.getPuzzleString(
-              puzzleString,
-              i,
-              availableValues[0],
-            );
-            console.log("solvedPuzzle", solvedPuzzle);
-          } else {
-            // choose value from those available values
-            for(let j = 0; j < availableValues.length; j++)
-            {
-              
-            }
-          }
-        } else {
-          continue;
-        }
-      }
-      return { solution: solvedPuzzle };
-    } else {
+    if (isValid !== true) {
       return isValid;
     }
+    let validValues = this.preCheck(puzzleString);
+
+    if (validValues.valid === false) {
+      return { error: "Puzzle cannot be solved" };
+    }
+
+    let solvedPuzzle = puzzleString;
+    do {
+      solvedPuzzle = this.setValues(solvedPuzzle);
+    } while (solvedPuzzle.indexOf(".") !== -1);
+
+    return { solution: solvedPuzzle };
   }
 }
 
