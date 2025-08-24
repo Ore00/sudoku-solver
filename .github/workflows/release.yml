@@ -32,10 +32,12 @@ jobs:
       - name: Verify npm auth setup
         run: |
           # Show what registry npm is using
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc |
           npm config get registry
 
           # Verify that the auth token is set (masked, won't show actual value)
           npm whoami || echo "⚠️ Not authenticated to npm"
+          
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Run Semantic Release
