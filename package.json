@@ -1,5 +1,5 @@
 {
-  "name": "sudoku-solver",
+  "name": "@ore00/sudoku-solver",
   "version": "2.0.0",
   "description": "An early puzzle helper that checks if your Sudoku moves follow the rules—born from a onine certification project.",
   "main": "server.js",
