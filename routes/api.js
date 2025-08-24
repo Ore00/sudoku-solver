@@ -2,10 +2,16 @@
 const { body, check } = require("express-validator");
 const SudokuSolver = require("../controllers/sudoku-solver.js");
 const { validate } = require("../controllers/validate.js");
-import "regenerator-runtime/runtime";
+require("regenerator-runtime/runtime");
 
 module.exports = function (app) {
   let solver = new SudokuSolver();
+
+  app.route("/api/health").get(async (req, res) => {
+
+    res.json({ "status": "OK", "message": "Sudoku Solver Server is running." });
+
+  });
 
   app
     .route("/api/check")

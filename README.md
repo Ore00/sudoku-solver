@@ -1,6 +1,72 @@
 # Sudoku Solver
 
-This is the boilerplate for the Sudoku Solver project. Instructions to complete your project can be found at https://www.freecodecamp.org/learn/quality-assurance/quality-assurance-projects/sudoku-solver
+An early puzzle helper that checks if your Sudoku moves follow the rules—born from a onine certification project. Originally completed as a part of a [Quality Assurance Challange](https://www.freecodecamp.org/learn/quality-assurance/quality-assurance-projects/sudoku-solver) see challege objectes below.
+
+## Project Overview
+
+ This is a simple Node.js web application that allows users to validate whether a sequence of numbers adheres to sudoku rules. It is monolithic and it features html frontend with a nodejs persistent backend.
+
+### Features
+
+- Validates whether an individual coordinate (A1) can accept a value of 1 - 9 as valid
+- Validates whether a value is valid between 1 - 9 
+- Validates whether a string is adheres to all sudoku rules and solves the puzzel.
+
+### Limitations
+- User can not type values into the sudoku board (grid)
+- Use canot save a sequence of numbers as a valid suduku puzzel
+
+---
+
+## Tech Stack
+
+- **Frontend:** HTML, CSS
+- **Backend:** Node.js, Express
+- **CI/CD:** GitHub Actions
+
+---
+## Getting Started / Running Locally
+
+Follow these steps to run the project on your local machine.
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/Ore00/sudoku-solver.git
+cd your-repo-name
+
+# 2. Install dependencies
+npm install
+
+# 3. Create an `.env` file from `.env.example` and set up your environment variables
+
+# 4. Start the development server
+npm run dev
+
+```
+
+## Deploying to Production
+
+Steps or commands used to deploy the app.
+
+- Push to `main` branch to auto-deploy
+- Use `npm run build` for static exports
+- Configure `.github/workflows/release.yml` for deployment options
+
+---
+
+## Contributions
+
+This repository is primarily for personal use, but contributions are welcome.  
+If you have suggestions or improvements, feel free to fork the repository and submit a pull request.
+
+> Please follow conventional commits and write clear commit messages.
+
+---
+
+## License
+
+This project is licensed under the MIT License — see the [LICENSE](https://opensource.org/license/mit) file for details.
+
 
 ## Objectives of Challenge
 
@@ -30,7 +96,7 @@ This is the boilerplate for the Sudoku Solver project. Instructions to complete 
 
 * If the value submitted to /api/check is not a number between 1 and 9, the returned value will be { error: 'Invalid value' }
 
-### File modified
+### File modified to complete the logical challenge
 * controllers/sudoku-solver.js
 * routes/api.js
 * controllers/validate.js
@@ -38,4 +104,4 @@ This is the boilerplate for the Sudoku Solver project. Instructions to complete 
 * tests/2_functional-tests.js
 
 
-#### Replit URL https://sudoku-solver.ore00.repl.co/
+ **[Replit URL](https://replit.com/@Ore00/sudoku-solver/)**
