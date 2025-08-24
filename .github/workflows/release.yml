@@ -29,8 +29,17 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+      - name: Verify npm auth setup
+        run: |
+          # Show what registry npm is using
+          npm config get registry
 
+          # Verify that the auth token is set (masked, won't show actual value)
+          npm whoami || echo "⚠️ Not authenticated to npm"
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Run Semantic Release
+      
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
