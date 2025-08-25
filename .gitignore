@@ -6,3 +6,8 @@ dist/
 node_modules/
 .replit
 replit.nix
+
+# amplify
+.amplify
+amplify_outputs*
+amplifyconfiguration*
