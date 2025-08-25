@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/Ore00/sudoku-solver/compare/v1.0.1...v1.1.0) (2025-08-25)
+
+
+### Features
+
+* amplify backend added ([eeea06c](https://github.com/Ore00/sudoku-solver/commit/eeea06cb2112ef2c2ab881ee1535ec9b2bbbec9c))
+
 ## [1.0.1](https://github.com/Ore00/sudoku-solver/compare/v1.0.0...v1.0.1) (2025-08-25)
 
 
