@@ -7,7 +7,7 @@ applications:
           commands:
             - nvm install 20.19.0
             - nvm use 20.19.0
-            - npm ci
+            - npm ci --include=dev
         build:
           commands:
             - npm run build
