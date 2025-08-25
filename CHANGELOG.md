@@ -1,3 +1,11 @@
+## [1.0.1](https://github.com/Ore00/sudoku-solver/compare/v1.0.0...v1.0.1) (2025-08-25)
+
+
+### Bug Fixes
+
+* remove npm debugging from pipeline ([3046e4f](https://github.com/Ore00/sudoku-solver/commit/3046e4f2bd9aa15fddc69f7cd9eee42166542e50))
+* trigger release [skip ci] ([9b9655a](https://github.com/Ore00/sudoku-solver/commit/9b9655a01d0e2762809db45f24e0aec6da8efac5))
+
 # 1.0.0 (2025-08-24)
 
 
